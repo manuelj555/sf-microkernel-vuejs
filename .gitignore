@@ -1,0 +1,4 @@
+/.phpintel
+/vendor
+/app/cache
+/app/logs
