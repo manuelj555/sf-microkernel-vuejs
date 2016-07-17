@@ -5,3 +5,4 @@
 /.idea
 /var/cache
 /var/logs
+/var/database
