@@ -11,8 +11,9 @@
 namespace App\Database;
 
 use Blog\Post;
+use Blog\PostFactory;
 use Blog\PostRepository;
-use Doctrine\DBAL\Driver\Connection;
+use Doctrine\DBAL\Connection;
 
 /**
  * @author Manuel Aguirre <programador.manuel@gmail.com>
@@ -21,14 +22,18 @@ class DbPostRepository implements PostRepository
 {
     /** @var Connection */
     private $conn;
+    /** @var PostFactory */
+    private $factory;
 
     /**
      * DbPostRepository constructor.
      * @param Connection $conn
+     * @param PostFactory $factory
      */
-    public function __construct(Connection $conn)
+    public function __construct(Connection $conn, PostFactory $factory)
     {
         $this->conn = $conn;
+        $this->factory = $factory;
     }
 
     /**
@@ -36,21 +41,26 @@ class DbPostRepository implements PostRepository
      */
     public function add(Post $post)
     {
-        $sql = <<<SQL
-INSERT INTO posts 
-    (title, content, author_id, created, updated)
-VALUES (?,?,?,?,?)
-SQL;
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute([
-            $post->getTitle(),
-            $post->getContent(),
-            $post->getContent(),
-            $post->getCreated()->format(\DateTime::ISO8601),
-            $post->getUpdated()->format(\DateTime::ISO8601),
+        $id = $this->conn->insert('posts', [
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+            'author_id' => $post->getAuthor()->getId(),
+            'created' => $post->getCreated()->format(\DateTime::ISO8601),
+            'updated' => $post->getUpdated()->format(\DateTime::ISO8601),
         ]);
 
-        $post->setId($this->conn->lastInsertId());
+        $post->setId($id);
+    }
+
+    /**
+     * @return \Generator
+     */
+    public function findAll(): \Generator
+    {
+        $sql = 'SELECT * FROM posts';
+
+        foreach ($this->conn->fetchAll($sql) as $data) {
+            yield $this->factory->create($data);
+        }
     }
 }
