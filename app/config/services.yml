@@ -1,16 +1,26 @@
 services:
+    logger.dbal:
+        class: Symfony\Bridge\Doctrine\Logger\DbalLogger
+        public: false
+        autowire: true
+
+    database.configuration:
+        class: Doctrine\DBAL\Configuration
+        public: false
+        calls:
+            - [setSQLLogger, ["@logger.dbal"]]
+
     database.connection:
         class: Doctrine\DBAL\Connection
+        public: false
         factory: [Doctrine\DBAL\DriverManager, getConnection]
         arguments:
-#            -   dbname: micro_kernel_blog
             -   dbname: main
                 user: root
                 password: ''
                 driver: pdo_sqlite
-#                driver: pdo_mysql
-#                host: 127.0.0.1
                 path: '%kernel.root_dir%/../var/database/db.sqlite'
+            - "@database.configuration"
 
     repository.user:
         class: App\Database\DbUserRepository

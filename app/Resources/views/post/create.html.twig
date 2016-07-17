@@ -1,8 +1,10 @@
 {% extends 'base.html.twig' %}
 
+{% block page_header 'Crear Post' %}
+
 {% block content %}
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <input type="submit" value="Crear">
+    <input type="submit" value="Crear" class="btn btn-primary">
     {{ form_end(form) }}
 {% endblock content %}
