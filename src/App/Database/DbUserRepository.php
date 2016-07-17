@@ -67,7 +67,7 @@ class DbUserRepository implements UserRepository, UserProviderInterface
      * @param $id
      * @return User
      */
-    public function find($id): User
+    public function find($id)
     {
         $sql = 'SELECT * FROM users WHERE id = ?';
         $data = $this->conn->fetchAssoc($sql, [$id]);
@@ -75,5 +75,7 @@ class DbUserRepository implements UserRepository, UserProviderInterface
         if ($data) {
             return $this->factory->create($data);
         }
+
+        return null;
     }
 }

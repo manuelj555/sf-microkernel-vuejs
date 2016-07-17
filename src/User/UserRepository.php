@@ -20,5 +20,5 @@ interface UserRepository
      * @param $id
      * @return User
      */
-    public function find($id): User;
+    public function find($id);
 }
