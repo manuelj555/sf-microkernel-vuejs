@@ -23,6 +23,18 @@ use Symfony\Component\HttpFoundation\Request;
 class PostController extends Controller
 {
     /**
+     * @Route("/list", name="post_list")
+     */
+    public function listAction()
+    {
+        $posts = $this->get('repository.post')->findAll();
+
+        return $this->render('post/list.html.twig', [
+            'posts' => $posts,
+        ]);
+    }
+
+    /**
      * @Route("/create", name="post_create")
      */
     public function createAction(Request $request)

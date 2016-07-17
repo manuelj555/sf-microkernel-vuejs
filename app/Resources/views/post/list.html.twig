@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header 'Listado de Post' %}
+
+{% block content %}
+
+    <p>
+        <a href="{{ path('post_create') }}" class="btn btn-primary">Crear Post</a>
+    </p>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Título</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for item in posts %}
+            <tr>
+                <td>{{ post.title }}</td>
+                <td><a href="{{ path('post_create') }}">Editar</a></td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="2">No hay posts creados</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}
