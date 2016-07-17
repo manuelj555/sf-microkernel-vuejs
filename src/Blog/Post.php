@@ -10,8 +10,9 @@
 
 namespace Blog;
 
+use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\DateTime;
+use User\User;
 
 /**
  * @author Manuel Aguirre <programador.manuel@gmail.com>
@@ -35,7 +36,7 @@ class Post
      */
     private $content;
     /**
-     * @var Author
+     * @var User
      *
      * @Assert\NotBlank()
      */
@@ -53,13 +54,16 @@ class Post
      * Post constructor.
      * @param string $title
      * @param string $content
-     * @param Author $author
+     * @param User $author
      */
-    public function __construct(string $title, string $content, Author $author)
+    public function __construct(string $title, string $content, User $author)
     {
         $this->title = $title;
         $this->content = $content;
         $this->author = $author;
+
+        $this->created = new DateTime();
+        $this->updated = new DateTime();
     }
 
     /**
@@ -87,9 +91,9 @@ class Post
     }
 
     /**
-     * @return Author
+     * @return User
      */
-    public function getAuthor(): Author
+    public function getAuthor(): User
     {
         return $this->author;
     }

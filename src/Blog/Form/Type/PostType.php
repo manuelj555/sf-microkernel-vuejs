@@ -13,6 +13,8 @@ namespace Blog\Form\Type;
 use Blog\Post;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
@@ -30,6 +32,15 @@ class PostType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Post::class,
+            'empty_data' => function (Options $options) {
+                return function (FormInterface $form) use ($options) {
+                    return new Post(
+                        $form['title']->getData(),
+                        $form['content']->getData(),
+                        $options['author']
+                    );
+                };
+            },
         ]);
 
         $resolver->setRequired('author');

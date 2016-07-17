@@ -8,12 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace Blog;
+namespace User;
 
 /**
  * @author Manuel Aguirre <programador.manuel@gmail.com>
  */
-interface Author
+interface UserRepository
 {
-    public function getId();
+    /**
+     * Retorna un Objeto User consultado por su id
+     * @param $id
+     * @return User
+     */
+    public function find($id): User;
 }

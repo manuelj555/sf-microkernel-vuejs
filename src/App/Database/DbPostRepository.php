@@ -37,7 +37,7 @@ class DbPostRepository implements PostRepository
     public function add(Post $post)
     {
         $sql = <<<SQL
-INSERT INTO post 
+INSERT INTO posts 
     (title, content, author_id, created, updated)
 VALUES (?,?,?,?,?)
 SQL;
