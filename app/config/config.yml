@@ -1,5 +1,14 @@
+imports:
+    - { resource: security.yml }
+
 framework:
     secret: S0ME_SECRET
     templating:
         engines: ['twig']
     profiler: { only_exceptions: false }
+    form:
+        enabled: true
+    validation:
+        enabled: true
+    translator:
+        fallback: es
