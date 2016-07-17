@@ -1,11 +1,11 @@
 <?php
 
+use Doctrine\Common\Annotations\AnnotationRegistry;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
-use Doctrine\Common\Annotations\AnnotationRegistry;
 
 // require Composer's autoloader
 $loader = require __DIR__.'/../vendor/autoload.php';
@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new Symfony\Bundle\TwigBundle\TwigBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
+            new Symfony\Bundle\MonologBundle\MonologBundle(),
         );
 
         if ($this->getEnvironment() == 'dev') {
@@ -55,5 +56,15 @@ class AppKernel extends Kernel
 
         // load the annotation routes
         $routes->import(__DIR__.'/../src/App/Controller/', '/', 'annotation');
+    }
+
+    public function getCacheDir()
+    {
+        return $this->rootDir.'/../var/cache/'.$this->environment;
+    }
+
+    public function getLogDir()
+    {
+        return $this->rootDir.'/../var/logs';
     }
 }

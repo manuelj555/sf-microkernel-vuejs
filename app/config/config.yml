@@ -1,5 +1,6 @@
 imports:
     - { resource: security.yml }
+    - { resource: services.yml }
 
 framework:
     secret: S0ME_SECRET
@@ -12,3 +13,21 @@ framework:
         enabled: true
     translator:
         fallback: es
+    session: ~
+
+monolog:
+    handlers:
+        main:
+            type: fingers_crossed
+            action_level: WARNING
+            handler: file
+            channels: ["!event"]
+        syslog:
+            type: stream
+#            level: ERROR
+            level: DEBUG
+            channels: ["!event"]
+        file:
+            type: stream
+            level: debug
+            channels: ["!event"]

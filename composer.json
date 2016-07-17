@@ -2,7 +2,8 @@
     "require": {
         "symfony/symfony": "^3.1",
         "sensio/framework-extra-bundle": "^3.0",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "symfony/monolog-bundle": "^2.11"
     },
     "autoload": {
         "psr-4": {

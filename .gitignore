@@ -3,3 +3,5 @@
 /app/cache
 /app/logs
 /.idea
+/var/cache
+/var/logs
