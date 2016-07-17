@@ -29,3 +29,9 @@ services:
     repository.post:
         class: App\Database\DbPostRepository
         autowire: true
+
+    form.type.post:
+        class: Blog\Form\Type\PostType
+        autowire: true
+        tags:
+            - { name: form.type }

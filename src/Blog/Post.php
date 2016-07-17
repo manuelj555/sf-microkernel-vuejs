@@ -121,4 +121,12 @@ class Post
     {
         $this->id = $id;
     }
+
+    /**
+     * @param string $content
+     */
+    public function setContent(string $content)
+    {
+        $this->content = $content;
+    }
 }
