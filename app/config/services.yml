@@ -1,0 +1,21 @@
+services:
+    database.connection:
+        class: Doctrine\DBAL\Connection
+        factory: [Doctrine\DBAL\DriverManager, getConnection]
+        arguments:
+#            -   dbname: micro_kernel_blog
+            -   dbname: main
+                user: root
+                password: ''
+                driver: pdo_sqlite
+#                driver: pdo_mysql
+#                host: 127.0.0.1
+                path: '%kernel.root_dir%/../var/database/db.sqlite'
+
+    repository.user:
+        class: App\Database\DbUserRepository
+        autowire: true
+
+    repository.post:
+        class: App\Database\DbPostRepository
+        autowire: true

@@ -1,21 +1,20 @@
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
+        User\User: plaintext
 
     providers:
-        in_memory:
-            memory:
-                users:
-                    user:
-                        password: 123
-                        roles: ROLE_USER
+        user:
+            id: repository.user
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         default:
-            anonymous: ~
+            pattern: ^/
+            provider: user
+#            anonymous: ~
             http_basic: ~
 
     access_control:
