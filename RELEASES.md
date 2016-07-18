@@ -7,3 +7,8 @@
 
  * Implementando diseño con bootstrap css
  * Implementando log de consultas SQL
+
+### Version 0.2
+
+ * Mejoras en el listado de posts
+ * Agregadas mas columnas al listado de posts
