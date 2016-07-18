@@ -55,4 +55,12 @@ class PostController extends Controller
 
         return $this->redirectToRoute('post_list');
     }
+
+    /**
+     * @Route("/edit/{id}", name="post_edit")
+     */ 
+    public function editAction(Request $request, Post $post)
+    {
+        
+    }
 }

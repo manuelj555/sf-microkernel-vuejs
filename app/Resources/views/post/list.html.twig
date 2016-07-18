@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block page_header 'Listado de Post' %}
+{% block page_header 'Listado de Posts' %}
 
 {% block content %}
 
@@ -11,7 +11,10 @@
     <table class="table table-bordered">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Título</th>
+            <th>Fecha Creación</th>
+            <th>Fecha Edición</th>
             <th>Acciones</th>
         </tr>
         </thead>
@@ -19,12 +22,15 @@
         <tbody>
         {% for item in posts %}
             <tr>
+                <td>{{ item.id }}</td>
                 <td>{{ item.title }}</td>
-                <td><a href="{{ path('post_create') }}">Editar</a></td>
+                <td>{{ item.created|date }}</td>
+                <td>{{ item.updated|date }}</td>
+                <td><a href="{{ path('post_edit', {id: item.id}) }}">Editar</a></td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="2">No hay posts creados</td>
+                <td colspan="100">No hay posts creados</td>
             </tr>
         {% endfor %}
         </tbody>
