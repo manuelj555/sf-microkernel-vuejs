@@ -9,12 +9,11 @@ framework:
     profiler: { only_exceptions: false }
     form:
         enabled: true
-    validation:
-        enabled: true
-    translator:
-        fallback: es
+    validation:  { enable_annotations: true }
+    translator:  { fallbacks: ["es"] }
     session: ~
     assets: ~
+    default_locale:  es
 
 monolog:
     handlers:
@@ -36,3 +35,4 @@ monolog:
 twig:
     form_themes:
         - 'bootstrap_3_layout.html.twig'
+    strict_variables: '%kernel.debug%'

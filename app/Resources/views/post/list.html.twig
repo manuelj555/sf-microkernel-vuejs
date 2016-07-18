@@ -19,7 +19,7 @@
         <tbody>
         {% for item in posts %}
             <tr>
-                <td>{{ post.title }}</td>
+                <td>{{ item.title }}</td>
                 <td><a href="{{ path('post_create') }}">Editar</a></td>
             </tr>
         {% else %}

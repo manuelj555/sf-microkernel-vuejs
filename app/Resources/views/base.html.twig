@@ -9,6 +9,7 @@
     <div class="page-header">
         <h1>{% block page_header %}{% endblock %}</h1>
     </div>
+    {% block flash_messages %}{{ include('flashes.html.twig') }}{% endblock %}
     {% block content %}{% endblock %}
 </div>
 

@@ -53,6 +53,6 @@ class PostController extends Controller
         $this->get('repository.post')->add($form->getData());
         $this->addFlash('success', 'Post creado con exito');
 
-        return $this->redirectToRoute('post_create');
+        return $this->redirectToRoute('post_list');
     }
 }

@@ -6,3 +6,4 @@
 /var/cache
 /var/logs
 /var/database
+/nbproject/private/
