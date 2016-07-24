@@ -21,4 +21,17 @@ interface PostRepository
      * @param Post $post
      */
     public function add(Post $post);
+
+    /** 
+     * Edita un post en el repositorio
+     *
+     * @param Post $post
+     */
+    public function update(Post $post);
+
+    /**
+     * @param int $id
+     * @return Post
+     */
+    public function find($id);
 }

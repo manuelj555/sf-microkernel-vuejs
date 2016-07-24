@@ -52,8 +52,18 @@ class DbPostRepository implements PostRepository
         $post->setId($id);
     }
 
+    public function update(Post $post)
+    {
+        $this->conn->update('posts', [
+            'title' => $post->getTitle(),
+            'content' => $post->getContent(),
+            'author_id' => $post->getAuthor()->getId(),
+            'updated' => $post->getUpdated()->format(\DateTime::ISO8601),
+        ], ['id' => $post->getId()]);
+    }
+
     /**
-     * @return \Generator
+     * @return \Generator|Post[]
      */
     public function findAll(): \Generator
     {
@@ -61,6 +71,15 @@ class DbPostRepository implements PostRepository
 
         foreach ($this->conn->fetchAll($sql) as $data) {
             yield $this->factory->create($data);
+        }
+    }
+
+    public function find($id)
+    {
+        $sql = 'SELECT * FROM posts WHERE id = ?';
+        
+        if($data = $this->conn->fetchAssoc($sql, [$id])){
+            return $this->factory->create($data);
         }
     }
 }

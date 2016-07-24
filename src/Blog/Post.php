@@ -52,15 +52,13 @@ class Post
 
     /**
      * Post constructor.
-     * @param string $title
-     * @param string $content
      * @param User $author
      */
-    public function __construct(string $title, string $content, User $author)
+    public function __construct(User $author)
     {
-        $this->title = $title;
-        $this->content = $content;
         $this->author = $author;
+        $this->title = '';
+        $this->content = '';
 
         $this->created = new DateTime();
         $this->updated = new DateTime();
@@ -125,8 +123,18 @@ class Post
     /**
      * @param string $content
      */
-    public function setContent(string $content)
+    public function setContent($content)
     {
         $this->content = $content;
+    }
+
+    /**
+     * Sets the value of title.
+     *
+     * @param string $title the title
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
     }
 }

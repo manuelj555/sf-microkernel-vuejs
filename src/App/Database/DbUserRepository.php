@@ -10,12 +10,13 @@
 
 namespace App\Database;
 
-use Doctrine\DBAL\Connection;
-use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\UserProviderInterface;
 use User\User;
 use User\UserFactory;
 use User\UserRepository;
+use Doctrine\DBAL\Connection;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\UserProviderInterface;
+use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 /**
  * @author Manuel Aguirre <programador.manuel@gmail.com>
@@ -46,6 +47,9 @@ class DbUserRepository implements UserRepository, UserProviderInterface
         if ($data) {
             return $this->factory->create($data);
         }
+
+        throw new UsernameNotFoundException();
+        
     }
 
     /**

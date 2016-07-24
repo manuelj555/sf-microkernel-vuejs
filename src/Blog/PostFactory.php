@@ -32,8 +32,11 @@ class PostFactory
     public function create($data):Post
     {
         $author = $this->userRepository->find($data['author_id']);
-        $post = new Post($data['title'], $data['content'], $author);
+        
+        $post = new Post($author);
         $post->setId($data['id']);
+        $post->setTitle($data['title']);
+        $post->setContent($data['content']);
 
         return $post;
     }

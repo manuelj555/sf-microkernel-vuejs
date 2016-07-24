@@ -10,10 +10,12 @@
 
 namespace App\Controller;
 
+use Blog\Post;
 use Blog\Form\Type\PostType;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 /**
  * @author Manuel Aguirre <programador.manuel@gmail.com>
@@ -39,9 +41,7 @@ class PostController extends Controller
      */
     public function createAction(Request $request)
     {
-        $form = $this->createForm(PostType::class, null, [
-            'author' => $this->getUser(),
-        ]);
+        $form = $this->createForm(PostType::class, new Post($this->getUser()));
         $form->handleRequest($request);
 
         if (!$form->isSubmitted() or !$form->isValid()) {
@@ -59,8 +59,22 @@ class PostController extends Controller
     /**
      * @Route("/edit/{id}", name="post_edit")
      */ 
-    public function editAction(Request $request, Post $post)
+    public function editAction(Request $request, $id)
     {
-        
+        $post = $this->get('repository.post')->find($id);
+        $form = $this->createForm(PostType::class, $post);
+        $form->handleRequest($request);
+
+        if (!$form->isSubmitted() or !$form->isValid()) {
+            return $this->render('post/edit.html.twig', [
+                'form' => $form->createView(),
+                'post' => $post,
+            ]);
+        }
+
+        $this->get('repository.post')->update($post);
+        $this->addFlash('success', 'Post editado con exito');
+
+        return $this->redirectToRoute('post_list');
     }
 }
