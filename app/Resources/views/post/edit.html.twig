@@ -2,10 +2,6 @@
 
 {% block page_header 'Editar Post (#'~post.id~')' %}
 
-{% block content %}
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Crear" class="btn btn-primary">
-    <a href="{{ path('post_list') }}" class="btn btn-default">Listado</a>
-    {{ form_end(form) }}
-{% endblock content %}
+{% use 'post/_form.html.twig' %}
+
+{% block primary_action_value 'Editar' %}
