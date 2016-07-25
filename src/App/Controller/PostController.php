@@ -30,7 +30,7 @@ class PostController extends Controller
     public function listAction()
     {
         $posts = $this->get('repository.post')->findAll();
-
+        
         return $this->render('post/list.html.twig', [
             'posts' => $posts,
         ]);

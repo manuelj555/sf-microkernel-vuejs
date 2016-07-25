@@ -15,7 +15,7 @@
             <th>Título</th>
             <th>Fecha Creación</th>
             <th>Fecha Edición</th>
-            <th>Acciones</th>
+            <th style="width: 120px">Acciones</th>
         </tr>
         </thead>
 
@@ -26,7 +26,17 @@
                 <td>{{ item.title }}</td>
                 <td>{{ item.created|date }}</td>
                 <td>{{ item.updated|date }}</td>
-                <td><a href="{{ path('post_edit', {id: item.id}) }}">Editar</a></td>
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Acciones
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-right">
+                            <li><a href="{{ path('post_edit', {id: item.id}) }}">Editar</a></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
         {% else %}
             <tr>
