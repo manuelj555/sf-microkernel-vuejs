@@ -7,4 +7,5 @@
 /var/logs
 /node_modules
 /var/database
+/public/vendor
 /nbproject/private/
