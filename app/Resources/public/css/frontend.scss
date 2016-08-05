@@ -1,0 +1,7 @@
+@import "../vendors/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.form-actions{
+  text-align: right;
+  border-top: 1px solid $hr-border;
+  padding: $padding-base-vertical*2 0;
+}

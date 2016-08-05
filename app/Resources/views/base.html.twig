@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Symfony Micro Kernel</title>
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('compiled/css/frontend.css') }}">
 </head>
 <body>
 <div class="container">
@@ -13,7 +13,6 @@
     {% block content %}{% endblock %}
 </div>
 
-<script src="{{ asset('js/jquery-2.1.4.min.js') }}"></script>
-<script src="{{ asset('js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('compiled/js/app.js') }}"></script>
 </body>
 </html>

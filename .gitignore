@@ -5,5 +5,9 @@
 /.idea
 /var/cache
 /var/logs
+/node_modules
 /var/database
+/public/vendor
+/app/Resources/public/vendors
+/public/compiled
 /nbproject/private/
