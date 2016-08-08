@@ -8,7 +8,7 @@
 	        		<li v-show="showError($postValidation.title, 'required')">El título no puede estar vacío</li>
 	        		<li v-show="showError($postValidation.title, 'minlength')">El título debe contener 5 caracteres o más</li>
 	        		<li v-show="showError($postValidation.content, 'required')">El Contenido no puede estar vacío</li>
-	        		<li v-show="showError($postValidation.content, 'minlength')">El Contenido debe contener 10 caracteres o más</li>
+	        		<!-- <li v-show="showError($postValidation.content, 'minlength')">El Contenido debe contener 10 caracteres o más</li> -->
 	        	</ul>
 	        </div>
 
@@ -19,13 +19,18 @@
 	        </div>
 	        <div class="form-group">
 	            <label for="">Contenido</label>
-	            <textarea class="form-control" v-model="post.content"
-	            v-validate:content="{required: true, minlength: 10}" detect-change="off"></textarea>
+	            <div class="well well-sm">
+		            <textarea v-model="post.content"
+		            v-validate:content="{required: true}"
+		            v-editor="post.content"></textarea>
+		            <!-- v-validate:content="{required: true, minlength: 20}" -->
+	            </div>
 	        </div>
 
 			<hr>
 			<div class="text-right">
-		        <button type="submit" class="btn btn-primary" :disabled="$postValidation.invalid">Guardar</button>
+		        <button type="submit" class="btn btn-primary">Guardar</button>
+		        <!-- <button type="submit" class="btn btn-primary" :disabled="$postValidation.invalid">Guardar</button> -->
 		        <a href="#" @click="closeForm">Cerrar</a>
 			</div>
 	    </form>
@@ -33,6 +38,8 @@
 </template>
 
 <script>
+import Editor from '../directives/Editor.vue'
+
 export default {
 	props: {
 		post: { 
@@ -66,13 +73,19 @@ export default {
 	},
 
 	methods: {
-		submit() {
+		submit(event) {
 			this.submited = true
+
+			if(this.$postValidation.valid){
+				this.onSubmit()
+			}else{
+				event.preventDefault()
+				event.stopPropagation()
+			}
 		},
 
 		closeForm() {
-			// this.submited = false
-			// this.onClose.call();
+			this.onClose();
 		},
 
 		markAsInvalid(field) {
@@ -80,7 +93,7 @@ export default {
 		},
 
 		showErrors(field) {
-			return field.dirty && field.invalid
+			return (this.submited || field.dirty) && field.invalid
 		},
 
 		showGlobalErrors(container) {
@@ -91,6 +104,11 @@ export default {
 		showError(field, type) {
 			return this.showErrors(field) && !!field[type]
 		},
+
+		initialize() {
+			this.$resetValidation()
+			this.submited = false
+		}
 	},
 
 	computed: {
@@ -102,12 +120,12 @@ export default {
 	ready() {
 		this.$watch('post', (post, oldPost) => {
 			if (post != oldPost){
-				this.$resetValidation()
+				this.initialize()
 			}
 		})
+
 	},
 
-	components: {
-	},
+	directives: {Editor},
 }
 </script>

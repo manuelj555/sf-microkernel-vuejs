@@ -30,7 +30,7 @@ var App = new Vue({
 
 	methods: {
 		closeModalForm () {
-			//this.showForm = false
+			this.showForm = false
 		},
 
 		openModalForm (post) {
