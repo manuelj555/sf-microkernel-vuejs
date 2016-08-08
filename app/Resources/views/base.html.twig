@@ -13,6 +13,8 @@
     {% block content %}{% endblock %}
 </div>
 
-<script src="{{ asset('compiled/js/app.js') }}"></script>
+{% block javascript %}
+	<script src="{{ asset('compiled/js/app.js') }}"></script>
+{% endblock %}
 </body>
 </html>

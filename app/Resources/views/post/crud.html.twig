@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header 'Administración de Posts' %}
+
+{% block content %}
+    <div id="posts-crud">
+        
+        <p>
+            <a href="#" @click.prevent="openModalForm" class="btn btn-primary">Crear Post</a>
+        </p>
+
+        <post-list 
+        :posts="posts"
+		:on-edit="openModalForm"></post-list>
+
+        <modal id="modal-test" 
+        title="Mi Modal" 
+        :show.sync="showForm"
+        :show-footer="false"
+        v-on:submit.post.form="closeModalForm">
+
+            <div slot="body">
+                <post-form :post="activePost" 
+                :show-legend="false"
+                :on-close="closeModalForm"
+        		:on-submit="savePost"></post-form>
+        	</div>
+
+        </modal>
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('compiled/js/vue_app.js') }}"></script>
+{% endblock %}
