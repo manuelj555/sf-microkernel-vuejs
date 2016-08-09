@@ -11,9 +11,9 @@
 
         <post-list 
         :posts="posts"
-		:on-edit="openModalForm"></post-list>
+		:on-edit="openModalForm" :on-change-page="goToPage" :current-page="currentPage"></post-list>
 
-        <modal id="modal-test" 
+        <modal id="modal-test"
         title="Mi Modal" 
         :show.sync="showForm"
         :show-footer="false"

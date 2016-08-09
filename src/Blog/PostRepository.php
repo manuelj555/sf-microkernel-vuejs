@@ -34,4 +34,11 @@ interface PostRepository
      * @return Post
      */
     public function find($id);
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @return Post[]
+     */
+    public function findAll(int $limit = null,int $offset = null);
 }

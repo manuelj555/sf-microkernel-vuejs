@@ -63,15 +63,23 @@ class DbPostRepository implements PostRepository
     }
 
     /**
-     * @return \Generator|Post[]
+     * @return Post[]
      */
-    public function findAll(): \Generator
+    public function findAll(int $limit = null, int $offset = null): array
     {
         $sql = 'SELECT * FROM posts';
 
-        foreach ($this->conn->fetchAll($sql) as $data) {
-            yield $this->factory->create($data);
+        if(null !== $limit and null !== $offset){
+            $sql .= sprintf(' LIMIT %d, %d', $limit, $offset);
         }
+
+        $posts = [];
+
+        foreach ($this->conn->fetchAll($sql) as $data) {
+            $posts[] = $this->factory->create($data);
+        }
+
+        return $posts;
     }
 
     public function find($id)

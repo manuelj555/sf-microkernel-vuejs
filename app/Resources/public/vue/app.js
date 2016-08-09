@@ -18,6 +18,7 @@ var App = new Vue({
 	data () {
 		return {
 			posts: [],
+			currentPage: 1,
 			activePost: {}, 
 			showForm: false,
 		}
@@ -58,9 +59,14 @@ var App = new Vue({
 		},
 
 		getPosts() {
-			this.resource.get().then((res) => {
+			this.resource.get({page: this.currentPage}).then((res) => {
 				this.$set('posts', res.json());
 			});
+		},
+
+		goToPage (pageNumber) {
+			this.currentPage = pageNumber
+			this.getPosts()
 		}
 	},
 

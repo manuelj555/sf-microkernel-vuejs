@@ -14,6 +14,7 @@ gulp.task('js', function () {
         'app/Resources/public/vendors/jquery/dist/jquery.min.js',
         'app/Resources/public/vendors/bootstrap-sass/assets/javascripts/bootstrap.min.js',
         'app/Resources/public/vendors/medium-editor/dist/js/medium-editor.js',
+        'app/Resources/public/vendors/lodash/dist/lodash.min.js',
         // 'app/Resources/public/vendors/vue/dist/vue.js',
         //'app/Resources/public/vendors/vue-router/dist/vue-router.min.js',
         // 'app/Resources/public/vendors/vue-resource/dist/vue-resource.min.js',

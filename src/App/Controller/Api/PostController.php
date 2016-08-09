@@ -30,9 +30,14 @@ class PostController extends Controller
      * @Route("/", name="api_post_list")
      * @Method("GET")
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
-        $posts = $this->get('repository.post')->findAll();
+        $page = $request->get('page', 1);
+        $perPage = 10;
+        $limit = ($page - 1) * $perPage;
+        $limit = $limit < 0 ? 0 : $limit;
+
+        $posts = $this->get('repository.post')->findAll($limit, $perPage);
         $posts = $this->get('serializer')->normalize($posts, 'array');
         
         return new JsonResponse($posts);
