@@ -38,7 +38,11 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Editor from '../directives/Editor.vue'
+import Validator from 'vue-validator'
+
+Vue.use(Validator)
 
 export default {
 	props: {

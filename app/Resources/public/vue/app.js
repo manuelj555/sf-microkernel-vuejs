@@ -1,11 +1,12 @@
+import Vue from 'vue'
 import PostList from './components/PostList.vue';
 import PostForm from './components/PostForm.vue';
 import Modal from './components/Modal.vue';
-import PostValidator from './post.validation.js';
+import VueResource from 'vue-resource';
 
 var baseApiUrl = 'http://localhost/symfony/pruebas/micro_kernel/public/index.php/api/posts';
 
-//var validator = new PostValidator();
+Vue.use(VueResource)
 
 var App = new Vue({
 	el: '#posts-crud',
