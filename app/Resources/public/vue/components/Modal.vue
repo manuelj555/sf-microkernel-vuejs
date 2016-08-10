@@ -1,6 +1,6 @@
 <template>
 	<div class="modal fade" id="{{ id }}">
-		<div class="modal-dialog">
+		<div class="modal-dialog {{ modalSize }}">
 			<div class="modal-content" v-if="showHeader">
 				<slot name="header">
 					<div class="modal-header">
@@ -33,9 +33,7 @@ export default {
 			type: Boolean,
 			twoWay: true,
 		},
-		title: {
-			type: String,
-		},
+		title: String,
 		id: {
 			type: String,
 			required: true,
@@ -48,12 +46,17 @@ export default {
 			type: Boolean,
 			default: true,
 		},
+		size: String,
 	},
 
 	methods: {
 		close () {
 			this.show = false;
 		}
+	},
+
+	computed: {
+		modalSize () { return 'modal-' + this.size },
 	},
 
 	ready () {
