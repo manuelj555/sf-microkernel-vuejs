@@ -4,9 +4,9 @@
 
 	<li v-if="!dynamicPrevNext || previous" :class="{disabled: !previous}">
       <a href="#" aria-label="Previous" @click.prevent="click(previous)" v-if="previous">
-        <span aria-hidden="true">&laquo;</span>
+        <span aria-hidden="true" class="fa fa-angle-left"></span>
       </a>
-      <span v-else aria-hidden="true">&laquo;</span>
+      <span v-else aria-hidden="true" class="fa fa-angle-left" ></span>
     </li>
 
     <li v-for="current in pagesRange" :class="{active: page == current}">
@@ -18,9 +18,9 @@
    
     <li v-if="!dynamicPrevNext || next"  :class="{disabled: !next}">
       <a href="#" aria-label="Next" @click.prevent="click(next)" v-if="next">
-        <span aria-hidden="true">&raquo;</span>
+        <span aria-hidden="true" class="fa fa-angle-right"></span>
       </a>
-	  <span aria-hidden="true" v-else>&raquo; </span>
+	  <span aria-hidden="true" class="fa fa-angle-right" v-else></span>
     </li>
   </ul>
 </nav>

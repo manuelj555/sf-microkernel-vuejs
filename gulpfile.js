@@ -45,6 +45,7 @@ gulp.task('css', function () {
         'app/Resources/assets/vendors/medium-editor/dist/css/medium-editor.min.css',
         'app/Resources/assets/vendors/medium-editor/dist/css/themes/bootstrap.min.css',
         'app/Resources/assets/vendors/pnotify/dist/pnotify.css',
+        'app/Resources/assets/vendors/font-awesome/css/font-awesome.min.css',
     ])
         .pipe(scss()).on('error', scss.logError)
         //.pipe(rewriteCSS({destination:dest}))
@@ -61,6 +62,13 @@ gulp.task('css', function () {
 gulp.task('assets:bs-fonts', function () {
     return gulp.src([
         'app/Resources/assets/vendors/bootstrap-sass/assets/fonts/**/*',
+    ])
+      .pipe(gulp.dest('public/fonts/'));
+});
+
+gulp.task('assets:fa-fonts', function () {
+    return gulp.src([
+        'app/Resources/assets/vendors/font-awesome/fonts/**/*',
     ])
       .pipe(gulp.dest('public/fonts/'));
 });
@@ -95,5 +103,5 @@ gulp.task('vueify:watch', ['vueify'], function () {
     });
 });
 
-gulp.task('assets', ['assets:bs-fonts']);
+gulp.task('assets', ['assets:bs-fonts', 'assets:bs-fonts']);
 gulp.task('default', ['css', 'js', 'vueify', 'assets']);
