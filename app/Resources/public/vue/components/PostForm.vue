@@ -3,7 +3,7 @@
 	    <form method="POST" role="form" @submit.prevent="submit" novalidate>
 	        <legend v-if="showLegend">{{isNew ? 'Crear' : 'Editar'}} Post</legend>
 
-	        <div v-if="showGlobalErrors($postValidation)" class="alert alert-danger">
+	        <div v-show="showGlobalErrors($postValidation)" class="alert alert-danger">
 	        	<ul>
 	        		<li v-show="showError($postValidation.title, 'required')">El título no puede estar vacío</li>
 	        		<li v-show="showError($postValidation.title, 'minlength')">El título debe contener 5 caracteres o más</li>
@@ -31,7 +31,7 @@
 			<div class="text-right">
 		        <button type="submit" class="btn btn-primary">Guardar</button>
 		        <!-- <button type="submit" class="btn btn-primary" :disabled="$postValidation.invalid">Guardar</button> -->
-		        <a href="#" @click="closeForm">Cerrar</a>
+		        <a href="#" @click="closeForm" class="btn btn-default">Cerrar</a>
 			</div>
 	    </form>
     </validator>
