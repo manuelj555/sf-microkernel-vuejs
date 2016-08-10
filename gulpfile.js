@@ -6,6 +6,12 @@ var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var rewriteCSS = require('gulp-rewrite-css');
 var gutil = require("gulp-util");
+// Dependencias para compular VueJS files
+var browserify = require('browserify')
+var vueify = require('vueify')
+var babelify = require('babelify');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 
 var assetsPath = './app/Resources/public/';
 
@@ -57,12 +63,8 @@ gulp.task('css:watch', ['css'], function() {
     ], ['css']);
 });
 
-var browserify = require('browserify')
-var vueify = require('vueify')
-var babelify = require('babelify');
-var source = require('vinyl-source-stream');
-
 gulp.task('vueify', function () {
+    process.env.NODE_ENV = 'production'
   return browserify(assetsPath + 'vue/app.js')
   .transform(babelify, { presets: ['es2015'], plugins: ["transform-runtime"] })
   .transform(vueify)
@@ -72,6 +74,8 @@ gulp.task('vueify', function () {
     this.emit('end');
   })
   .pipe(source("vue_app.js"))
+  .pipe(buffer())
+  .pipe(uglify())
   .pipe(gulp.dest("./public/compiled/js/"));
 });
 
