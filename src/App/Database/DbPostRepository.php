@@ -90,4 +90,11 @@ class DbPostRepository implements PostRepository
             return $this->factory->create($data);
         }
     }
+
+    public function countAll() : int
+    {
+        $sql = 'SELECT COUNT(*) FROM posts';
+
+        return $this->conn->fetchColumn($sql);
+    }
 }

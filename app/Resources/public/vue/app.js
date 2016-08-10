@@ -16,6 +16,7 @@ var App = new Vue({
 		return {
 			posts: [],
 			currentPage: 1,
+			totalPosts: 0,
 			activePost: {}, 
 			showForm: false,
 		}
@@ -58,6 +59,7 @@ var App = new Vue({
 		getPosts() {
 			this.resource.get({page: this.currentPage}).then((res) => {
 				this.$set('posts', res.json());
+				this.$set('totalPosts', Number(res.headers['X-Total-Count']));
 			});
 		},
 

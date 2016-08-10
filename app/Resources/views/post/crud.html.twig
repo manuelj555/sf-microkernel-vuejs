@@ -7,7 +7,7 @@
         
         <div>
             <div class="pull-right pagination-top">
-                <paginator :page="currentPage" :per-page="10", :count="24" :on-click="goToPage"></paginator>
+                <paginator :page="currentPage" :per-page="10", :count="totalPosts" :on-click="goToPage"></paginator>
             </div>
 
             <a href="#" @click.prevent="openModalForm" class="btn btn-primary">Crear Post</a>

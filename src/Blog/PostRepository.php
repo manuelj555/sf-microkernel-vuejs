@@ -41,4 +41,6 @@ interface PostRepository
      * @return Post[]
      */
     public function findAll(int $limit = null,int $offset = null);
+
+    public function countAll() : int;
 }

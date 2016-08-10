@@ -39,8 +39,12 @@ class PostController extends Controller
 
         $posts = $this->get('repository.post')->findAll($limit, $perPage);
         $posts = $this->get('serializer')->normalize($posts, 'array');
+
+        $count = $this->get('repository.post')->countAll();
         
-        return new JsonResponse($posts);
+        return new JsonResponse($posts, 200, [
+            'X-Total-Count' => $count,
+        ]);
     }
 
     /**
