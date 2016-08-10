@@ -33,12 +33,9 @@
             </tr> -->
         </tbody> 
     </table>
-
-    <paginator :page="currentPage" :per-page="10", :count="24" :on-click="changePage"></paginator>
 </template>
 
 <script>
-import Paginator from './Paginator.vue' 
 
 export default {
 	props: {
@@ -50,26 +47,12 @@ export default {
             required: true,
             type: Function,
         },
-        onChangePage: {
-            required: true,
-            type: Function,
-        },
-        currentPage: {type: Number}
 	},
 
     methods: {
-
         onClickEdit (post) {
             this.onEdit(post)
         },
-
-        changePage (page) {
-            console.debug('Cambiando a la página ', page)
-            this.onChangePage(page)
-        },
-
     },
-
-    components: {Paginator}
 }
 </script>

@@ -5,13 +5,16 @@
 {% block content %}
     <div id="posts-crud">
         
-        <p>
-            <a href="#" @click.prevent="openModalForm" class="btn btn-primary">Crear Post</a>
-        </p>
+        <div>
+            <div class="pull-right pagination-top">
+                <paginator :page="currentPage" :per-page="10", :count="24" :on-click="goToPage"></paginator>
+            </div>
 
-        <post-list 
-        :posts="posts"
-		:on-edit="openModalForm" :on-change-page="goToPage" :current-page="currentPage"></post-list>
+            <a href="#" @click.prevent="openModalForm" class="btn btn-primary">Crear Post</a>
+        </div>
+        <br>
+
+        <post-list :posts="posts":on-edit="openModalForm"></post-list>
 
         <modal id="modal-test"
         title="Mi Modal" 

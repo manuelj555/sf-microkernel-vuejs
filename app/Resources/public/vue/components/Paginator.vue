@@ -20,7 +20,7 @@
       <a href="#" aria-label="Next" @click.prevent="click(next)" v-if="next">
         <span aria-hidden="true">&raquo;</span>
       </a>
-	  <span aria-hidden="true" v-else>&raquo;</span>
+	  <span aria-hidden="true" v-else>&raquo; </span>
     </li>
   </ul>
 </nav>

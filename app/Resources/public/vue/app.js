@@ -1,20 +1,17 @@
 import Vue from 'vue'
-import PostList from './components/PostList.vue';
-import PostForm from './components/PostForm.vue';
-import Modal from './components/Modal.vue';
-import VueResource from 'vue-resource';
+import PostList from './components/PostList.vue'
+import PostForm from './components/PostForm.vue'
+import Modal from './components/Modal.vue'
+import VueResource from 'vue-resource'
+import Paginator from './components/Paginator.vue' 
 
-var baseApiUrl = 'http://localhost/symfony/pruebas/micro_kernel/public/index.php/api/posts';
+var baseApiUrl = 'http://localhost/symfony/pruebas/micro_kernel/public/index.php/api/posts'
 
 Vue.use(VueResource)
 
 var App = new Vue({
 	el: '#posts-crud',
-
-	http: {
-		//root: baseApiUrl + '{/id}',
-	},
-
+	
 	data () {
 		return {
 			posts: [],
@@ -70,7 +67,5 @@ var App = new Vue({
 		}
 	},
 
-	components: {PostList, PostForm, Modal}
+	components: {PostList, PostForm, Modal, Paginator}
 })
-
-// new PostValidator().validate({});
