@@ -25,6 +25,18 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 class PostController extends Controller
 {
     /**
+     * @Route("/", name="post_admin")
+     */
+    public function adminAction()
+    {
+        //$posts = $this->get('repository.post')->findAll();
+        
+        return $this->render('post/crud.html.twig', [
+            //'posts' => $posts,
+        ]);
+    }
+
+    /**
      * @Route("/list", name="post_list")
      */
     public function listAction()

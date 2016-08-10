@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block page_header 'Administración de Posts' %}
+
+{% block content %}
+    <div id="posts-crud">
+        
+        <div>
+            <div class="pull-right pagination-top">
+                <paginator :page="currentPage" :per-page="10", :count="totalPosts" :on-click="goToPage"></paginator>
+            </div>
+
+            <a href="#" @click.prevent="openModalForm" class="btn btn-primary">Crear Post</a>
+        </div>
+        <br>
+
+        <post-list :posts="posts"></post-list>
+
+        <modal id="modal-post-form" size="lg" title="Mi Modal" :show.sync="showForm" :show-footer="false">
+
+            <div slot="body">
+                <post-form :post="activePost":show-legend="false"></post-form>
+            </div>
+
+        </modal>
+
+        <modal id="modal-post-delete" title="Eliminar Post" :show.sync="showDeleteModal">
+
+            <div slot="body">
+                ¿Seguro de querer eliminar el Post?
+            </div>
+
+            <div slot="footer">
+                <button type="button" @click.prevent="deletePost" class="btn btn-primary">Si</button>
+                <button type="button" @click.prevent="hideDeleteConfirm" class="btn btn-default">No</button>
+        	</div>
+
+        </modal>
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('compiled/js/vue_app.js') }}"></script>
+{% endblock %}

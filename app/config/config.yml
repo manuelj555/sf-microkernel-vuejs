@@ -14,6 +14,7 @@ framework:
     session: ~
     assets: ~
     default_locale:  es
+    serializer: ~
 
 monolog:
     handlers:
