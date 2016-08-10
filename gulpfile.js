@@ -6,7 +6,7 @@ var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
 var rewriteCSS = require('gulp-rewrite-css');
 var gutil = require("gulp-util");
-// Dependencias para compular VueJS files
+// Dependencias para compilar VueJS files
 var browserify = require('browserify')
 var vueify = require('vueify')
 var babelify = require('babelify');
@@ -21,10 +21,6 @@ gulp.task('js', function () {
         'app/Resources/public/vendors/bootstrap-sass/assets/javascripts/bootstrap.min.js',
         'app/Resources/public/vendors/medium-editor/dist/js/medium-editor.js',
         'app/Resources/public/vendors/lodash/dist/lodash.min.js',
-        // 'app/Resources/public/vendors/vue/dist/vue.js',
-        //'app/Resources/public/vendors/vue-router/dist/vue-router.min.js',
-        // 'app/Resources/public/vendors/vue-resource/dist/vue-resource.min.js',
-        // 'app/Resources/public/vendors/vue-validator/dist/vue-validator.js',
         'app/Resources/public/js/**/*.js',
     ])
     .pipe(uglify())
