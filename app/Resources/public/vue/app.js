@@ -19,6 +19,8 @@ var App = new Vue({
 			totalPosts: 0,
 			activePost: {}, 
 			showForm: false,
+			showDeleteModal: false,
+			postToBeDeleted: null,
 		}
 	},
 
@@ -30,7 +32,8 @@ var App = new Vue({
 
 	methods: {
 		closeModalForm () {
-			this.showForm = false
+			this.showForm = false 
+			this.activePost = {}
 		},
 
 		openModalForm (post) {
@@ -41,7 +44,17 @@ var App = new Vue({
 			}
 		},
 
-		savePost () {
+		showDeleteConfirm (post) {
+			this.showDeleteModal = true
+			this.postToBeDeleted = post
+		},
+
+		hideDeleteConfirm () {
+			this.showDeleteModal = false
+			this.postToBeDeleted = null
+		},
+
+		savePost () { 
 
 			var post = this.activePost;
 			this.activePost = {};
@@ -66,6 +79,35 @@ var App = new Vue({
 		goToPage (pageNumber) {
 			this.currentPage = pageNumber
 			this.getPosts()
+		},
+
+		deletePost () {
+			if (!this.postToBeDeleted){
+				return;
+			}
+
+			this.resource.delete({id: this.postToBeDeleted.id}).then((res) => { 
+				this.getPosts()
+				this.hideDeleteConfirm()
+			})
+		}
+	},
+
+	events: {
+		'post-list.click.edit' (post) {
+			this.openModalForm(post)
+		},
+
+		'post-list.click.delete' (post) {
+			this.showDeleteConfirm(post)
+		},
+
+		'post-form.submit' (post) {
+			this.savePost()
+		},
+
+		'post-form.cancel' (post) {
+			this.closeModalForm()
 		}
 	},
 

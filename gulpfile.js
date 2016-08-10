@@ -60,7 +60,6 @@ gulp.task('css:watch', ['css'], function() {
 });
 
 gulp.task('vueify', function () {
-    process.env.NODE_ENV = 'production'
   return browserify(assetsPath + 'vue/app.js')
   .transform(babelify, { presets: ['es2015'], plugins: ["transform-runtime"] })
   .transform(vueify)
@@ -71,7 +70,7 @@ gulp.task('vueify', function () {
   })
   .pipe(source("vue_app.js"))
   .pipe(buffer())
-  .pipe(uglify())
+  .pipe(gutil.env.env === 'prod' ? uglify() : gutil.noop())
   .pipe(gulp.dest("./public/compiled/js/"));
 });
 

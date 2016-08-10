@@ -62,6 +62,11 @@ class DbPostRepository implements PostRepository
         ], ['id' => $post->getId()]);
     }
 
+    public function remove(Post $post)
+    {
+        return $this->conn->delete('posts', ['id' => $post->getId()]);
+    }
+
     /**
      * @return Post[]
      */

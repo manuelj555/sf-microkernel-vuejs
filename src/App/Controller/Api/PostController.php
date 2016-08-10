@@ -78,16 +78,30 @@ class PostController extends Controller
         $post = $this->get('repository.post')->find($id);
 
         $this->get('serializer')->deserialize(
-        	$request->getContent(), 
-        	Post::class,
-        	'json',
-        	['object_to_populate' => $post]
-    	);
+            $request->getContent(), 
+            Post::class,
+            'json',
+            ['object_to_populate' => $post]
+        );
         
         $this->get('repository.post')->update($post);
 
         return new JsonResponse(
             $this->get('serializer')->normalize($post, 'array')
         );
+    }
+
+    /**
+     * @Route("/{id}", name="api_post_delete")
+     * @Method("DELETE")
+     */
+    public function deleteAction(Request $request, $id)
+    {
+        $post = $this->get('repository.post')->find($id);
+        
+        $this->get('repository.post')->remove($post);
+        $post = $this->get('serializer')->normalize($post, 'array');
+
+        return new JsonResponse($post);
     }
 }

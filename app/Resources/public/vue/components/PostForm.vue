@@ -8,7 +8,6 @@
 	        		<li v-show="showError($postValidation.title, 'required')">El título no puede estar vacío</li>
 	        		<li v-show="showError($postValidation.title, 'minlength')">El título debe contener 5 caracteres o más</li>
 	        		<li v-show="showError($postValidation.content, 'required')">El Contenido no puede estar vacío</li>
-	        		<!-- <li v-show="showError($postValidation.content, 'minlength')">El Contenido debe contener 10 caracteres o más</li> -->
 	        	</ul>
 	        </div>
 
@@ -23,7 +22,6 @@
 		            <textarea v-model="post.content"
 		            v-validate:content="{required: true}"
 		            v-editor="post.content"></textarea>
-		            <!-- v-validate:content="{required: true, minlength: 20}" -->
 	            </div>
 	        </div>
 
@@ -31,7 +29,7 @@
 			<div class="text-right">
 		        <button type="submit" class="btn btn-primary">Guardar</button>
 		        <!-- <button type="submit" class="btn btn-primary" :disabled="$postValidation.invalid">Guardar</button> -->
-		        <a href="#" @click="closeForm" class="btn btn-default">Cerrar</a>
+		        <a href="#" @click="cancelForm" class="btn btn-default">Cerrar</a>
 			</div>
 	    </form>
     </validator>
@@ -47,27 +45,15 @@ Vue.use(Validator)
 export default {
 	props: {
 		post: { 
-			//required: true,
 			type: Object,
 			default: () => {
 				return {}
 			}
 		},
-		pathList: {
-			type: String
-		},
 		showLegend: {
 			type: Boolean,
 			default: true,
 		},
-		onClose: {
-			type: Function,
-			required: true,
-		},
-		onSubmit: {
-			type: Function,
-			default: () => {},
-		}
 	},
 
 	data() {
@@ -81,15 +67,15 @@ export default {
 			this.submited = true
 
 			if(this.$postValidation.valid){
-				this.onSubmit()
+				this.$dispatch('post-form.submit', this.post)
 			}else{
 				event.preventDefault()
 				event.stopPropagation()
 			}
 		},
 
-		closeForm() {
-			this.onClose();
+		cancelForm() {
+			this.$dispatch('post-form.cancel', this.post)
 		},
 
 		markAsInvalid(field) {

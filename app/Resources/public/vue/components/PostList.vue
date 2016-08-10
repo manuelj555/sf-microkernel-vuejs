@@ -24,6 +24,7 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-right">
                             <li><a href="#" @click.prevent="onClickEdit(item)">Editar</a></li>
+                            <li><a href="#" @click.prevent="onClickDelete(item)">Eliminar</a></li>
                         </ul>
                     </div>
                 </td>
@@ -43,16 +44,16 @@ export default {
 			required: true,
 			type: [Array, Object],
 		},
-        onEdit: {
-            required: true,
-            type: Function,
-        },
 	},
 
     methods: {
         onClickEdit (post) {
-            this.onEdit(post)
+            this.$dispatch('post-list.click.edit', post)
         },
+
+        onClickDelete (post) {
+            this.$dispatch('post-list.click.delete', post)
+        }
     },
 }
 </script>

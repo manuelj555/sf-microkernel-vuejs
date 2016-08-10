@@ -14,20 +14,25 @@
         </div>
         <br>
 
-        <post-list :posts="posts":on-edit="openModalForm"></post-list>
+        <post-list :posts="posts"></post-list>
 
-        <modal id="modal-test"
-        size="lg"
-        title="Mi Modal" 
-        :show.sync="showForm"
-        :show-footer="false"
-        v-on:submit.post.form="closeModalForm">
+        <modal id="modal-post-form" size="lg" title="Mi Modal" :show.sync="showForm" :show-footer="false">
 
             <div slot="body">
-                <post-form :post="activePost" 
-                :show-legend="false"
-                :on-close="closeModalForm"
-        		:on-submit="savePost"></post-form>
+                <post-form :post="activePost":show-legend="false"></post-form>
+            </div>
+
+        </modal>
+
+        <modal id="modal-post-delete" title="Eliminar Post" :show.sync="showDeleteModal">
+
+            <div slot="body">
+                ¿Seguro de querer eliminar el Post?
+            </div>
+
+            <div slot="footer">
+                <button type="button" @click.prevent="deletePost" class="btn btn-primary">Si</button>
+                <button type="button" @click.prevent="hideDeleteConfirm" class="btn btn-default">No</button>
         	</div>
 
         </modal>

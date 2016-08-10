@@ -29,6 +29,13 @@ interface PostRepository
      */
     public function update(Post $post);
 
+    /** 
+     * Elimina un post del repositorio
+     *
+     * @param Post $post
+     */
+    public function remove(Post $post);
+
     /**
      * @param int $id
      * @return Post
