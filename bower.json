@@ -20,7 +20,8 @@
     "bootstrap-sass": "bootstrap-sass-official#^3.3.6",
     "vue-validator": "^2.1.5",
     "lodash": "^4.14.2",
-    "marked": "^0.3.6"
+    "marked": "^0.3.6",
+    "pnotify": "^3.0.0"
   },
   "devDependencies": {}
 }

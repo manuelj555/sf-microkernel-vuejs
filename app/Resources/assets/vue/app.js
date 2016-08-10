@@ -4,7 +4,9 @@ import PostForm from './components/PostForm.vue'
 import Modal from './components/Modal.vue'
 import VueResource from 'vue-resource'
 import Paginator from './components/Paginator.vue' 
+import { Notification } from '../js/notification' 
 
+PNotify.prototype.options.styling = "bootstrap3";
 var baseApiUrl = 'http://localhost/symfony/pruebas/micro_kernel/public/index.php/api/posts'
 
 Vue.use(VueResource)
@@ -28,6 +30,8 @@ var App = new Vue({
 		this.resource = this.$resource(baseApiUrl + '/{id}')
 
 		this.getPosts()
+
+		this.notification = new Notification()
 	},
 
 	methods: {
@@ -57,7 +61,7 @@ var App = new Vue({
 		savePost () { 
 
 			var post = this.activePost;
-			this.activePost = {};
+
 			var promise = null;
 
 			if (post.id) {
@@ -66,7 +70,11 @@ var App = new Vue({
 				promise = this.resource.save({}, post)
 			}
 
-			promise.then(() => { this.getPosts(); })
+			promise.then(() => { 
+				this.closeModalForm()
+				this.notification.success('Post #' + post.id + ' (' + post.title + '), guardado con éxito')
+				this.getPosts()
+			 })
 		},
 
 		getPosts() {
@@ -87,8 +95,12 @@ var App = new Vue({
 			}
 
 			this.resource.delete({id: this.postToBeDeleted.id}).then((res) => { 
-				this.getPosts()
+				let post = res.json()
+
 				this.hideDeleteConfirm()
+				this.notification.success('Post #' + post.id + ' (' + post.title + ') eliminado con éxito')
+				
+				this.getPosts()
 			})
 		}
 	},

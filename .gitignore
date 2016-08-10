@@ -8,6 +8,7 @@
 /node_modules
 /var/database
 /public/vendor
-/app/Resources/public/vendors
+/app/Resources/assets/vendors
 /public/compiled
+/public/fonts
 /nbproject/private/

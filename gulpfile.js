@@ -4,8 +4,10 @@ var scss = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var uglifycss = require('gulp-uglifycss');
-var rewriteCSS = require('gulp-rewrite-css');
+//var rewriteCSS = require('gulp-rewrite-css');
+var babel = require('gulp-babel');
 var gutil = require("gulp-util");
+var replace = require('gulp-replace');
 // Dependencias para compilar VueJS files
 var browserify = require('browserify')
 var vueify = require('vueify')
@@ -13,16 +15,19 @@ var babelify = require('babelify');
 var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 
+var resourcesPath = './app/Resources/assets/';
 var assetsPath = './app/Resources/public/';
 
 gulp.task('js', function () {
     return gulp.src([
-        'app/Resources/public/vendors/jquery/dist/jquery.min.js',
-        'app/Resources/public/vendors/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-        'app/Resources/public/vendors/medium-editor/dist/js/medium-editor.js',
-        'app/Resources/public/vendors/lodash/dist/lodash.min.js',
+        'app/Resources/assets/vendors/jquery/dist/jquery.min.js',
+        'app/Resources/assets/vendors/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+        'app/Resources/assets/vendors/medium-editor/dist/js/medium-editor.min.js',
+        'app/Resources/assets/vendors/lodash/dist/lodash.min.js',
+        'app/Resources/assets/vendors/pnotify/dist/pnotify.js',
         'app/Resources/public/js/**/*.js',
     ])
+    .pipe(babel())
     .pipe(uglify())
     .on("error", function(err){
         gutil.log(err)
@@ -37,11 +42,13 @@ gulp.task('css', function () {
 
     return gulp.src([
         'app/Resources/public/css/**/*.scss',
-        'app/Resources/public/vendors/medium-editor/dist/css/medium-editor.min.css',
-        'app/Resources/public/vendors/medium-editor/dist/css/themes/bootstrap.min.css',
+        'app/Resources/assets/vendors/medium-editor/dist/css/medium-editor.min.css',
+        'app/Resources/assets/vendors/medium-editor/dist/css/themes/bootstrap.min.css',
+        'app/Resources/assets/vendors/pnotify/dist/pnotify.css',
     ])
         .pipe(scss()).on('error', scss.logError)
-        .pipe(rewriteCSS({destination:dest}))
+        //.pipe(rewriteCSS({destination:dest}))
+        .pipe(replace('../fonts/', '../../fonts/'))
         .pipe(concat('frontend.css'))
         .pipe(uglifycss())
         .pipe(autoprefixer({
@@ -51,16 +58,23 @@ gulp.task('css', function () {
         .pipe(gulp.dest(dest));
 });
 
+gulp.task('assets:bs-fonts', function () {
+    return gulp.src([
+        'app/Resources/assets/vendors/bootstrap-sass/assets/fonts/**/*',
+    ])
+      .pipe(gulp.dest('public/fonts/'));
+});
+
 // Cuando ocurra algun cambio en .scss se ejecutara la tarea sass definida.
 gulp.task('css:watch', ['css'], function() {
     gulp.watch([
-        'app/Resources/public/css/*.scss',
         'app/Resources/public/css/**/*.scss',
+        'app/Resources/public/css/**/*.css',
     ], ['css']);
 });
 
 gulp.task('vueify', function () {
-  return browserify(assetsPath + 'vue/app.js')
+  return browserify(resourcesPath + 'vue/app.js')
   .transform(babelify, { presets: ['es2015'], plugins: ["transform-runtime"] })
   .transform(vueify)
   .bundle()
@@ -75,10 +89,11 @@ gulp.task('vueify', function () {
 });
 
 gulp.task('vueify:watch', ['vueify'], function () {
-  return gulp.watch(["vue/**/*.js", "vue/**/*.vue"], {cwd: assetsPath}, ["vueify"])
+  return gulp.watch(["vue/**/*.js", "vue/**/*.vue", "js/**/*.js"], {cwd: resourcesPath}, ["vueify"])
     .on("change", function(event){
         gutil.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
     });
 });
 
-gulp.task('default', ['css', 'js', 'vueify']);
+gulp.task('assets', ['assets:bs-fonts']);
+gulp.task('default', ['css', 'js', 'vueify', 'assets']);
